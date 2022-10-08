@@ -6,7 +6,7 @@ const ThemeToggleButton: React.FC = () => {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <div className='flex rounded-full dark:bg-gray-400 bg-yellow-400 cursor-pointer' onClick={toggleTheme}>
+    <div className='flex rounded-full dark:bg-gray-400 bg-yellow-400 cursor-pointer text-2xl' onClick={toggleTheme}>
       <div className='p-2 rounded-full dark:bg-white dark:text-black text-gray-600'>
         <FaMoon />
       </div>

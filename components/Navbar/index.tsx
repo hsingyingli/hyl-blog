@@ -8,12 +8,13 @@ const Navbar = () => {
   const router = useRouter();
   const handleOnClick = () => router.push('/')
   return (
-    <div className='py-1 px-3 backdrop-blur w-full text-black flex gap-7 items-center sticky top-0 left-0 z-50'>
-      <div className='dark:text-white font-medium cursor-pointer' onClick={handleOnClick}>HYL-BLOG</div>
-      <div className='flex-grow dark:text-white'>Block 2</div>
-      <div className="flex gap-3">
-        <ThemeToggleButton />
-        <DropdownMenu />
+    <div className='backdrop-blur w-full fixed top-0 left-0 z-50'>
+      <div className='max-w-screen-xl mx-auto flex gap-7 items-center justify-between p-3'>
+        <div className='font-bold text-2xl cursor-pointer' onClick={handleOnClick}>Hsing-Blog</div>
+        <div className="flex gap-3">
+          <ThemeToggleButton />
+          <DropdownMenu />
+        </div>
       </div>
     </div>
   )

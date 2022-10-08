@@ -56,7 +56,7 @@ const Editor: React.FC<Props> = ({ clses }) => {
   }
 
   return (
-    <div>
+    <div className='max-w-screen-md w-full mx-auto bg-red-100'>
       <div className='flex mb-5 gap-3 items-center'>
         <p className='text-md rounded-lg border-2 border-gray-600 py-1 px-2'>{session?.user?.user_metadata.username}</p>
         <FaAngleRight className='text-lg' />
@@ -73,7 +73,10 @@ const Editor: React.FC<Props> = ({ clses }) => {
           disabled={isLoading}
         >Save</button>
       </div>
-      <Markdown />
+      <div className='min-h-screen w-full'>
+        <Markdown md={`# h1 
+## h2`} />
+      </div>
     </div>
   )
 }
