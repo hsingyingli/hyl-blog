@@ -22,7 +22,7 @@ const DropdownMenu = () => {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black dark:bg-gray-200 bg-opacity-20 p-2 text-2xl text-white dark:text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+      <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black dark:bg-gray-200 bg-opacity-20 p-2 text-xl text-white dark:text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
         <MdMenu />
       </Menu.Button>
       <Transition
