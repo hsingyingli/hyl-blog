@@ -9,7 +9,6 @@ import useAuth from "../../hooks/useAuth";
 const DropdownMenu = () => {
   const router = useRouter();
   const { session } = useAuth();
-  console.log(session)
 
   const redirectToHome = () => router.push('/')
   const redirectToPosts = () => router.push('/posts')

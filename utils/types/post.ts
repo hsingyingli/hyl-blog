@@ -1,3 +1,5 @@
+import { Cls } from "./cls"
+
 type Post = {
   id: number
   created_at: string
@@ -6,6 +8,7 @@ type Post = {
   content: string
   title: string
   cls_id: number
+  category: Cls
 }
 
 type Posts = Array<Post>

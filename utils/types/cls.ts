@@ -1,6 +1,6 @@
 type Cls = {
-  id: string
-  created_at: string
+  id?: string
+  created_at?: string
   cls_name: string
 }
 

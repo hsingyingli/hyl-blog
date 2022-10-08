@@ -33,7 +33,6 @@ const SupaProvider: React.FC<Props> = ({ children }) => {
         } else {
           fetch("/api/auth/remove", { method: "GET", credentials: "same-origin" })
         }
-
         setIsLoading(false)
       }
     }
@@ -43,7 +42,6 @@ const SupaProvider: React.FC<Props> = ({ children }) => {
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session)
-        console.log('here', session)
         if (session) {
           fetch('/api/auth/auth', {
             method: 'POST',
