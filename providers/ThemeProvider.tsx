@@ -45,6 +45,7 @@ const ThemeProvider: React.FC<Props> = ({ children }) => {
       root.classList.add('dark')
     }
     document.documentElement.setAttribute('data-color-mode', theme || "dark")
+    document.documentElement.style.colorScheme = theme || 'dark'
   }, [theme])
 
   return (
