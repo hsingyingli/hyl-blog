@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
-import dynamic from "next/dynamic";
 import React, { useState } from 'react'
+import matter from 'gray-matter';
 import supabase from '../../utils/supabaseClient'
 import { Post } from '../../utils/types/post'
 
@@ -9,6 +9,7 @@ interface Props {
 }
 
 const Post: React.FC<Props> = ({ post }) => {
+  console.log(post)
   return (
     <div className='mx-auto max-w-screen-md w-full p-3 min-h-screen'>
     </div>)
@@ -24,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }) =>
     return {
       redirect: {
         destination: '/posts',
-        permanent: false
+        permanent: true
       }, props: {}
     }
   }

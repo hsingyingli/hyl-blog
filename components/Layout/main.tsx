@@ -18,7 +18,7 @@ const Main: React.FC<Props> = ({ children }) => {
         <title>hyl-blog</title>
       </Head>
       <Navbar />
-      <div className='max-w-screen-2xl w-full mx-auto p-3 min-h-screen'>
+      <div className='max-w-screen-2xl w-full mx-auto p-3 mt-[64px] min-h-[calc(100vh_-_64px)]'>
         {children}
       </div>
       <Footer />

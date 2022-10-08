@@ -14,7 +14,7 @@ const Markdown: React.FC<Props> = ({ md }) => {
   const { theme } = useTheme()
   return (
     <ReactMarkdown
-      className='prose prose-lg max-w-none w-full h-full p-2  dark:prose-invert'
+      className='prose prose-lg max-w-none w-full h-full p-2 dark:prose-invert'
       remarkPlugins={[remarkGfm]}
       children={md}
       components={{

@@ -1,16 +1,35 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import dynamic from 'next/dynamic';
+import React, { useState } from "react";
 import supabase from "../../utils/supabaseClient";
 import { Posts } from "../../utils/types/post";
+import { PostgrestError } from "@supabase/supabase-js";
+import Drawer from "../../components/Drawer";
+const Markdown = dynamic(
+  () => {
+    return import("../../components/Markdown");
+  },
+  { ssr: false }
+);
 
 interface Props {
   posts: Posts
+  error: PostgrestError | null
 }
 
+
+
+
 const Posts: React.FC<Props> = ({ posts }) => {
-  console.log(posts)
+  console.log(posts[0].content)
   return (
-    <div>
+    <div className='flex gap-10 min-h-[calc(100vh_-_64px)]'>
+      <div className='hidden md:block'>
+        <Drawer />
+      </div>
+      <div className='md:pl-[300px] p-0 overflow-x-auto'>
+        <Markdown md={posts[0].content} />
+      </div>
     </div>
   )
 }
