@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { Cls, Clses } from '../../utils/types/cls'
 
@@ -29,7 +29,7 @@ const ListBox: React.FC<Props> = ({ items, selected, setSelected }) => {
                 <Listbox.Option
                   key={item.id}
                   className={({ active }) =>
-                    `relative cursor-default select-none p-2  ${active ? 'bg-amber-100 text-amber-900' : 'text-white'
+                    `relative cursor-default select-none p-2  ${active ? 'bg-amber-100 text-amber-900' : 'dark:text-white'
                     }`
                   }
                   value={item}
