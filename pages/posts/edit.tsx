@@ -6,9 +6,8 @@ import { FaAngleRight } from 'react-icons/fa'
 import useAuth from '../../hooks/useAuth';
 import supabase from '../../utils/supabaseClient';
 import toast from 'react-hot-toast'
-import { GetServerSideProps } from 'next';
 import { Clses } from '../../utils/types/cls';
-import ListBox from '../../components/Listbox';
+import usePost from '../../hooks/usePost';
 
 const AceEditor = dynamic(
   () => {
@@ -29,12 +28,13 @@ interface Props {
 }
 
 
-const Editor: React.FC<Props> = ({ clses }) => {
+const Editor: React.FC<Props> = () => {
   const [markdown, setMarkdown] = useState("**Hello world!!!**");
+  const [category, setCategory] = useState("")
+  const { selectPost } = usePost()
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false)
-  const [selected, setSelected] = useState(clses[0])
   const { session } = useAuth()
 
   const handleOnChange = (value: string, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,11 +45,11 @@ const Editor: React.FC<Props> = ({ clses }) => {
     setIsLoading(true)
     const toastId = toast.loading('Loading...');
     const post = {
-      title: title,
+      title: title || "untitled",
       owner_id: session?.user?.id,
       content: markdown,
       updated_at: ((new Date()).toISOString()),
-      cls_id: selected.id
+      category: category || "untitled"
     }
     const { data, error } = await supabase
       .from('posts')
@@ -68,8 +68,8 @@ const Editor: React.FC<Props> = ({ clses }) => {
       id: toastId
     })
 
-    const postId = data[0].id
-    router.push(`/posts/${postId}`)
+    selectPost(data[0])
+    router.push(`/posts`)
   }
 
   return (
@@ -77,11 +77,15 @@ const Editor: React.FC<Props> = ({ clses }) => {
       <div className='flex mb-5 gap-3 items-center'>
         <p className='text-md rounded-lg border-2 border-gray-600 py-1 px-2'>{session?.user?.user_metadata.username}</p>
         <FaAngleRight className='text-lg' />
-        <ListBox items={clses} selected={selected} setSelected={setSelected} />
+        <input className='text-md rounded-lg border-2 border-gray-600 py-1 px-2 bg-transparent'
+          type='text'
+          placeholder='category'
+          value={category}
+          onChange={(e) => setCategory(e.target.value)} />
         <FaAngleRight className='text-lg' />
         <input className='text-md rounded-lg border-2 border-gray-600 py-1 px-2 bg-transparent'
           type='text'
-          placeholder='Untitle'
+          placeholder='title'
           value={title}
           onChange={(e) => setTitle(e.target.value)} />
         <FaAngleRight className='text-lg' />
@@ -100,16 +104,6 @@ const Editor: React.FC<Props> = ({ clses }) => {
       </div>
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await supabase.from('category').select('*')
-
-  return {
-    props: {
-      clses: data
-    }
-  }
 }
 
 export default Editor

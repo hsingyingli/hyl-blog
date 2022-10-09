@@ -1,18 +1,21 @@
 import React, { useMemo } from 'react'
+import usePost from '../../hooks/usePost'
+import useTheme from '../../hooks/useTheme'
 import { Post, Posts } from '../../utils/types/post'
 
 interface Props {
   posts: Posts | null
-  setPost: React.Dispatch<React.SetStateAction<Post | null>>
 }
 
-const Drawer: React.FC<Props> = ({ posts, setPost }) => {
+const Drawer: React.FC<Props> = ({ posts }) => {
+  const { theme } = useTheme()
+  const { post, selectPost } = usePost()
   const category = useMemo(() => {
     if (posts) {
       const groupByCategory = posts.reduce((group, post) => {
-        const { category: { cls_name } } = post;
-        group[cls_name] = group[cls_name] ?? [];
-        group[cls_name].push(post);
+        const { category } = post;
+        group[category] = group[category] ?? [];
+        group[category].push(post);
         return group;
       }, {});
       return groupByCategory
@@ -32,10 +35,13 @@ const Drawer: React.FC<Props> = ({ posts, setPost }) => {
               <p key={key} className='text-2xl mb-2 text-teal-500'>{key}</p>
               <ul>
                 {value.map((v) => {
+                  const isActive = v.id === post?.id
+                  const textColor = theme === 'dark' ? 'white' : 'rgb(156, 163, 175)'
                   return (
                     <li
-                      onClick={() => setPost(v)}
+                      onClick={() => selectPost(v)}
                       key={v.id}
+                      style={{ color: isActive ? textColor : '' }}
                       className='cursor-pointer my-3 hover:text-gray-400 dark:text-gray-400 dark:hover:text-white'>
                       {v.title}
                     </li>)
