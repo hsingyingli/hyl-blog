@@ -31,8 +31,8 @@ const Drawer: React.FC<Props> = ({ posts }) => {
           const key = data[0]
           const value = data[1] as Posts
           return (
-            <div className='mb-1 p-2'>
-              <p key={key} className='text-2xl mb-2 text-teal-500'>{key}</p>
+            <div key={key} className='mb-1 p-2'>
+              <p className='text-2xl mb-2 text-teal-500'>{key}</p>
               <ul>
                 {value.map((v) => {
                   const isActive = v.id === post?.id

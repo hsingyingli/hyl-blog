@@ -3,11 +3,11 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router'
 import { useState } from "react";
 import { FaAngleRight } from 'react-icons/fa'
-import useAuth from '../../hooks/useAuth';
 import supabase from '../../utils/supabaseClient';
 import toast from 'react-hot-toast'
 import { Clses } from '../../utils/types/cls';
 import usePost from '../../hooks/usePost';
+import useAuth from '../../hooks/useAuth';
 
 const AceEditor = dynamic(
   () => {
@@ -29,12 +29,15 @@ interface Props {
 
 
 const Editor: React.FC<Props> = () => {
-  const [markdown, setMarkdown] = useState("**Hello world!!!**");
+  const [markdown, setMarkdown] = useState(`---
+# title: 
+---
+`);
   const [category, setCategory] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [title, setTitle] = useState("");
   const { selectPost } = usePost()
   const router = useRouter();
-  const [title, setTitle] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
   const { session } = useAuth()
 
   const handleOnChange = (value: string, e: React.ChangeEvent<HTMLInputElement>) => {

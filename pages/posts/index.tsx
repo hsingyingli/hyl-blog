@@ -20,7 +20,18 @@ const Posts: React.FC = () => {
   const { post } = usePost()
   const user = supabase.auth.user()
 
-  const welcome = "# Testing"
+  const welcome = `# Hello friend
+---
+***This is Hsing-Blog***
+> a simple markdown blog
+- [x] Write, Save Markdown Content
+- [ ] Update, Delete blog
+- [ ] Landing Page is still uncompleted
+---
+## Notes
+1. delete post is quit easy. Just delete post in the database. In order not to re fetch the whole post list again. In client side, We can just remove the deleted post from the pre-fetched post array (if it is deleted successfully).
+2. For updating post, I can redirect to /post/edit page. However, I need to add extra logic for unauthorized action. I can also redirect to new route ('/post/update').
+`
   useEffect(() => {
     const getPost = async () => {
       const { data, error } = await supabase
