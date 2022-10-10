@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from "react";
 import toast from 'react-hot-toast'
 import supabase from "../../utils/supabaseClient";
-import { Post, Posts } from "../../utils/types/post";
+import { Posts } from "../../utils/types/post";
 import Drawer from "../../components/Drawer";
-import useAuth from '../../hooks/useAuth';
+import { MdDelete, MdEditNote } from 'react-icons/md'
 import Loading from '../../components/Loading';
 import usePost from '../../hooks/usePost';
 const Markdown = dynamic(
@@ -17,8 +17,9 @@ const Markdown = dynamic(
 const Posts: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [posts, setPosts] = useState<Posts | null>(null)
-  const { post } = usePost()
+  const { post, selectPost } = usePost()
   const user = supabase.auth.user()
+
 
   const welcome = `# Hello friend
 ---
@@ -53,6 +54,27 @@ const Posts: React.FC = () => {
     getPost()
   }, [])
 
+
+  const handleOnDelete = async () => {
+    const { error } = await supabase
+      .from('posts')
+      .delete()
+      .match({ id: post?.id, owner_id: user?.id })
+    console.log(error)
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+
+    setPosts((prevPosts) => {
+      const newPosts = prevPosts?.filter((p) => {
+        return p?.id != post?.id
+      })
+      return newPosts || null
+    })
+    selectPost(null)
+  }
+
   return isLoading ? <Loading />
     :
     (
@@ -60,7 +82,19 @@ const Posts: React.FC = () => {
         <div className='hidden md:block'>
           <Drawer posts={posts} />
         </div>
-        <div className='md:pl-[300px] p-0 overflow-x-auto'>
+        <div className='md:pl-[300px] p-0  flex-grow'>
+          <div className='flex items-center justify-end p-3 gap-3 text-2xl'>
+            <div className='group relative'>
+              <button><MdEditNote /></button>
+              <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Edit</span>
+            </div>
+
+            <div className='group relative'>
+              <button onClick={handleOnDelete}><MdDelete /></button>
+              <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Delete</span>
+            </div>
+          </div>
+
           <Markdown md={post?.content || welcome} />
         </div>
       </div>
