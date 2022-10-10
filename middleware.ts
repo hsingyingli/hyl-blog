@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import supabase from './utils/supabaseClient'
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next()
@@ -15,5 +14,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/posts/:path*',
+  matcher: '/notes/:path*',
 }

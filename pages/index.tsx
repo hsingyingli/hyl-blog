@@ -1,16 +1,16 @@
 import type { NextPage } from 'next'
 import Banner from '../components/Banner'
-import { Posts } from '../utils/types/post'
 
-interface Props {
-  posts: Posts | null
-}
 
-const Home: NextPage<Props> = () => {
-
+const Home: NextPage = () => {
   return (
-    <div className='min-h-[calc(100vh_-_60px)]'>
-      <h1 className='text-white z-auto'>Blog</h1>
+    <div className='min-h-[calc(100vh_-_70px)] bg-transparent'>
+      <Banner />
+      <div className='mx-auto max-w-screen-md h-[calc(100vh_-_70px)] flex flex-col items-center justify-center gap-5'>
+        <h1 className='prose prose-xl xs:text-3xl sm:text-4xl md:text-5xl font-black text-center leading-relaxed'>Write NoteBook With Speed Using Markdown</h1>
+        <p className='max-w-screen-sm mx-auto text-center sm:text-sm md:text-lg font-medium'>this markdown notebook is a practical web project using <span className='text-teal-500'>Nextjs</span>, <span className='text-teal-500'>TailwindCSS</span>, <span className='text-teal-500'>Supabase</span>.
+        </p>
+      </div>
     </div>
   )
 }

@@ -5,10 +5,10 @@ import { useState } from "react";
 import { FaAngleRight } from 'react-icons/fa'
 import supabase from '../../utils/supabaseClient';
 import toast from 'react-hot-toast'
-import usePost from '../../hooks/usePost';
+import useNote from '../../hooks/useNote';
 import useAuth from '../../hooks/useAuth';
 import { GetServerSideProps } from 'next';
-import { Post } from '../../utils/types/post';
+import { Note } from '../../utils/types/note';
 
 const AceEditor = dynamic(
   () => {
@@ -26,10 +26,10 @@ const Markdown = dynamic(
 
 interface Props {
   isUpdating: boolean
-  post: Post | null
+  note: Note | null
 }
 
-const Editor: React.FC<Props> = ({ isUpdating, post }) => {
+const Editor: React.FC<Props> = ({ isUpdating, note }) => {
   const [markdown, setMarkdown] = useState(`---
 # title: 
 ---
@@ -37,15 +37,15 @@ const Editor: React.FC<Props> = ({ isUpdating, post }) => {
   const [category, setCategory] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [title, setTitle] = useState("");
-  const { selectPost } = usePost()
+  const { selectNote } = useNote()
   const router = useRouter();
   const { session } = useAuth()
 
   useEffect(() => {
-    if (isUpdating && post) {
-      setCategory(post.category)
-      setTitle(post.title)
-      setMarkdown(post.content)
+    if (isUpdating && note) {
+      setCategory(note.category)
+      setTitle(note.title)
+      setMarkdown(note.content)
     }
   }, [])
 
@@ -56,7 +56,7 @@ const Editor: React.FC<Props> = ({ isUpdating, post }) => {
   const handleOnUpdate = async () => {
     setIsLoading(true)
     const toastId = toast.loading('Loading...');
-    const newPost = {
+    const newNote = {
       title: title || "untitled",
       owner_id: session?.user?.id,
       content: markdown,
@@ -66,9 +66,9 @@ const Editor: React.FC<Props> = ({ isUpdating, post }) => {
 
 
     const { data, error } = await supabase
-      .from('posts')
-      .update(newPost)
-      .match({ id: post?.id, owner_id: session?.user?.id })
+      .from('notes')
+      .update(newNote)
+      .match({ id: note?.id, owner_id: session?.user?.id })
 
     setIsLoading(false)
     if (error) {
@@ -81,14 +81,14 @@ const Editor: React.FC<Props> = ({ isUpdating, post }) => {
       id: toastId
     })
 
-    selectPost(data[0])
-    router.push(`/posts`)
+    selectNote(data[0])
+    router.push(`/notes`)
   }
 
   const handleOnSave = async () => {
     setIsLoading(true)
     const toastId = toast.loading('Loading...');
-    const newPost = {
+    const newNote = {
       title: title || "untitled",
       owner_id: session?.user?.id,
       content: markdown,
@@ -97,9 +97,9 @@ const Editor: React.FC<Props> = ({ isUpdating, post }) => {
     }
 
     const { data, error } = await supabase
-      .from('posts')
+      .from('notes')
       .insert([
-        newPost,
+        newNote,
       ])
 
     setIsLoading(false)
@@ -113,8 +113,8 @@ const Editor: React.FC<Props> = ({ isUpdating, post }) => {
       id: toastId
     })
 
-    selectPost(data[0])
-    router.push(`/posts`)
+    selectNote(data[0])
+    router.push(`/notes`)
   }
 
   return (
@@ -152,21 +152,21 @@ const Editor: React.FC<Props> = ({ isUpdating, post }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const postId = ctx.query.postId
+  const noteId = ctx.query.noteId
 
-  if (!postId) return {
+  if (!noteId) return {
     props: {
       isUpdating: false,
-      post: null
+      note: null
     }
   }
   const { user } = await supabase.auth.api.getUserByCookie(ctx.req)
-  const { data, error } = await supabase.from('posts').select('*').match({ id: postId, owner_id: user?.id }).single()
+  const { data, error } = await supabase.from('notes').select('*').match({ id: noteId, owner_id: user?.id }).single()
 
   if (error) {
     return {
       redirect: {
-        destination: '/posts',
+        destination: '/notes',
         permanent: true
       }, props: {}
     }
@@ -175,10 +175,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       isUpdating: true,
-      post: data
+      note: data
     }
   }
-
 }
 
 export default Editor

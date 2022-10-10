@@ -4,7 +4,7 @@ import Layout from '../components/Layout/main'
 import SupaProvider from '../providers/SupaProvider'
 import { Toaster } from 'react-hot-toast';
 import ThemeProvider from '../providers/ThemeProvider';
-import PostSelector from '../providers/PostSelector';
+import NoteSelector from '../providers/NoteSelector';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
 
@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <SupaProvider>
       <ThemeProvider>
         <Layout path={router.asPath}>
-          <PostSelector>
+          <NoteSelector>
             <Component {...pageProps} />
             <Toaster />
-          </PostSelector>
+          </NoteSelector>
         </Layout>
       </ThemeProvider>
     </SupaProvider>

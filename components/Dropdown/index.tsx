@@ -11,7 +11,7 @@ const DropdownMenu = () => {
   const { session } = useAuth();
 
   const redirectToHome = () => router.push('/')
-  const redirectToPosts = () => router.push('/posts')
+  const redirectToNotes = () => router.push('/notes')
   const redirectToSignIn = () => router.push('/signin')
   const redirectToSignUp = () => router.push('/signup')
 
@@ -44,7 +44,7 @@ const DropdownMenu = () => {
                       <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToHome}>Home</button>
                     </Menu.Item>
                     <Menu.Item>
-                      <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToPosts}>Posts</button>
+                      <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToNotes}>Notes</button>
                     </Menu.Item>
                   </div>
                   <div className="p-1">

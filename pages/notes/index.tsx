@@ -2,12 +2,12 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from "react";
 import toast from 'react-hot-toast'
 import supabase from "../../utils/supabaseClient";
-import { Posts } from "../../utils/types/post";
+import { Notes } from "../../utils/types/note";
 import Drawer from "../../components/Drawer";
 import { MdDelete, MdMode } from 'react-icons/md'
 import Loading from '../../components/Loading';
-import usePost from '../../hooks/usePost';
-import ListBox from '../../components/Listbox';
+import useNote from '../../hooks/useNote';
+import Link from 'next/link';
 const Markdown = dynamic(
   () => {
     return import("../../components/Markdown");
@@ -15,10 +15,10 @@ const Markdown = dynamic(
   { ssr: false }
 );
 
-const Posts: React.FC = () => {
+const Notes: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const [posts, setPosts] = useState<Posts | null>(null)
-  const { post, selectPost } = usePost()
+  const [notes, setNotes] = useState<Notes | null>(null)
+  const { note, selectNote } = useNote()
   const user = supabase.auth.user()
 
 
@@ -32,9 +32,9 @@ const Posts: React.FC = () => {
 ---
 `
   useEffect(() => {
-    const getPost = async () => {
+    const fetchNote = async () => {
       const { data, error } = await supabase
-        .from('posts')
+        .from('notes')
         .select('*')
         .eq('owner_id', user?.id)
         .order('created_at')
@@ -44,31 +44,31 @@ const Posts: React.FC = () => {
       }
 
       if (data) {
-        setPosts(data)
+        setNotes(data)
       }
       setIsLoading(false)
     }
 
-    getPost()
+    fetchNote()
   }, [])
 
   const handleOnDelete = async () => {
     const { error } = await supabase
-      .from('posts')
+      .from('notes')
       .delete()
-      .match({ id: post?.id, owner_id: user?.id })
+      .match({ id: note?.id, owner_id: user?.id })
     if (error) {
       toast.error(error.message)
       return
     }
 
-    setPosts((prevPosts) => {
-      const newPosts = prevPosts?.filter((p) => {
-        return p?.id != post?.id
+    setNotes((prevNotes) => {
+      const newNotes = prevNotes?.filter((n) => {
+        return n?.id != note?.id
       })
-      return newPosts || null
+      return newNotes || null
     })
-    selectPost(null)
+    selectNote(null)
   }
 
   return isLoading ? <Loading />
@@ -76,12 +76,12 @@ const Posts: React.FC = () => {
     (
       <div className='flex gap-10 min-h-[calc(100vh_-_64px)]'>
         <div className='hidden md:block'>
-          <Drawer posts={posts} isOpen={false} />
+          <Drawer notes={notes} isOpen={false} />
         </div>
         <div className='md:pl-[300px] p-0  flex-grow'>
-          <div className='flex items-center p-3 gap-3 text-2xl' style={{ display: post ? 'flex' : 'none' }}>
+          <div className='flex items-center p-3 gap-3 text-2xl' style={{ display: note ? 'flex' : 'none' }}>
             <div className='group relative h-8 w-8 p-1 text-white hover:text-gray-500 duration-500'>
-              <a href={`/posts/edit?postId=${post?.id}`}><MdMode /></a>
+              <Link href={`/notes/edit?noteId=${note?.id}`} passHref><a><MdMode /></a></Link>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Edit</span>
             </div>
 
@@ -91,10 +91,10 @@ const Posts: React.FC = () => {
             </div>
           </div>
 
-          <Markdown md={post?.content || welcome} />
+          <Markdown md={note?.content || welcome} />
         </div>
       </div>
     )
 }
 
-export default Posts
+export default Notes

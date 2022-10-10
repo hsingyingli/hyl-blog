@@ -1,6 +1,4 @@
-import { Cls } from "./cls"
-
-type Post = {
+type Note = {
   id: number
   created_at: string
   owner_id: string
@@ -11,9 +9,9 @@ type Post = {
   category: string
 }
 
-type Posts = Array<Post>
+type Notes = Array<Note>
 
 export type {
-  Post,
-  Posts
+  Note,
+  Notes
 }
