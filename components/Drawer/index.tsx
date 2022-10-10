@@ -3,10 +3,15 @@ import React, { useMemo } from 'react'
 import useNote from '../../hooks/useNote'
 import useTheme from '../../hooks/useTheme'
 import { Notes } from '../../utils/types/note'
+import { isKeyInObject } from '../../utils/utils'
 
 interface Props {
   notes: Notes | null
   isOpen: boolean
+}
+
+interface LooseObject {
+  [key: string]: any
 }
 
 const Drawer: React.FC<Props> = ({ notes, isOpen }) => {
@@ -14,9 +19,11 @@ const Drawer: React.FC<Props> = ({ notes, isOpen }) => {
   const { note, selectNote } = useNote()
   const category = useMemo(() => {
     if (notes) {
-      const groupByCategory = notes.reduce((group, note) => {
+      const groupByCategory = notes.reduce((group: LooseObject, note) => {
         const { category } = note;
-        group[category] = group[category] ?? [];
+        if (isKeyInObject(group, category)) {
+          group[category] = [];
+        }
         group[category].push(note);
         return group;
       }, {});
