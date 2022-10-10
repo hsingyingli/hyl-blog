@@ -5,9 +5,10 @@ import Navbar from '../Navbar'
 
 interface Props {
   children: React.ReactNode
+  path: string
 }
 
-const Main: React.FC<Props> = ({ children }) => {
+const Main: React.FC<Props> = ({ path, children }) => {
   return (
     <div className='dark:bg-black dark:text-white text-black bg-amber-50 duration-500'>
       <Head>
@@ -17,7 +18,7 @@ const Main: React.FC<Props> = ({ children }) => {
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <title>hyl-blog</title>
       </Head>
-      <Navbar />
+      <Navbar path={path} />
       <div className='max-w-screen-2xl w-full mx-auto p-3 mt-[64px] min-h-[calc(100vh_-_64px)]'>
         {children}
       </div>

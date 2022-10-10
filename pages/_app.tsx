@@ -6,11 +6,12 @@ import { Toaster } from 'react-hot-toast';
 import ThemeProvider from '../providers/ThemeProvider';
 import PostSelector from '../providers/PostSelector';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
+
   return (
     <SupaProvider>
       <ThemeProvider>
-        <Layout>
+        <Layout path={router.asPath}>
           <PostSelector>
             <Component {...pageProps} />
             <Toaster />

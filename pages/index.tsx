@@ -1,14 +1,19 @@
 import type { NextPage } from 'next'
-import useAuth from '../hooks/useAuth'
+import Banner from '../components/Banner'
+import { Posts } from '../utils/types/post'
 
-const Home: NextPage = () => {
-  const { isLoading, session } = useAuth()
-  console.log(session)
+interface Props {
+  posts: Posts | null
+}
+
+const Home: NextPage<Props> = () => {
+
   return (
-    <div className='text-black min-h-[calc(100vh_-_40px)]'>
-
+    <div className='min-h-[calc(100vh_-_60px)]'>
+      <h1 className='text-white z-auto'>Blog</h1>
     </div>
   )
 }
+
 
 export default Home

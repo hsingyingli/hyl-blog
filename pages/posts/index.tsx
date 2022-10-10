@@ -4,9 +4,10 @@ import toast from 'react-hot-toast'
 import supabase from "../../utils/supabaseClient";
 import { Posts } from "../../utils/types/post";
 import Drawer from "../../components/Drawer";
-import { MdDelete, MdEditNote } from 'react-icons/md'
+import { MdDelete, MdMode } from 'react-icons/md'
 import Loading from '../../components/Loading';
 import usePost from '../../hooks/usePost';
+import ListBox from '../../components/Listbox';
 const Markdown = dynamic(
   () => {
     return import("../../components/Markdown");
@@ -26,12 +27,9 @@ const Posts: React.FC = () => {
 ***This is Hsing-Blog***
 > a simple markdown blog
 - [x] Write, Save Markdown Content
-- [ ] Update, Delete blog
+- [x] Update, Delete blog
 - [ ] Landing Page is still uncompleted
 ---
-## Notes
-1. delete post is quit easy. Just delete post in the database. In order not to re fetch the whole post list again. In client side, We can just remove the deleted post from the pre-fetched post array (if it is deleted successfully).
-2. For updating post, I can redirect to /post/edit page. However, I need to add extra logic for unauthorized action. I can also redirect to new route ('/post/update').
 `
   useEffect(() => {
     const getPost = async () => {
@@ -78,16 +76,16 @@ const Posts: React.FC = () => {
     (
       <div className='flex gap-10 min-h-[calc(100vh_-_64px)]'>
         <div className='hidden md:block'>
-          <Drawer posts={posts} />
+          <Drawer posts={posts} isOpen={false} />
         </div>
         <div className='md:pl-[300px] p-0  flex-grow'>
-          <div className='flex items-center justify-end p-3 gap-3 text-2xl' style={{ display: post ? 'flex' : 'none' }}>
-            <div className='group relative'>
-              <a href={`/posts/edit?postId=${post?.id}`}><MdEditNote /></a>
+          <div className='flex items-center p-3 gap-3 text-2xl' style={{ display: post ? 'flex' : 'none' }}>
+            <div className='group relative h-8 w-8 p-1 text-white hover:text-gray-500 duration-500'>
+              <a href={`/posts/edit?postId=${post?.id}`}><MdMode /></a>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Edit</span>
             </div>
 
-            <div className='group relative'>
+            <div className='group relative h-8 w-8 p-1 text-white hover:text-gray-500 duration-500'>
               <button onClick={handleOnDelete}><MdDelete /></button>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Delete</span>
             </div>
