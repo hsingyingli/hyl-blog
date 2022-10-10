@@ -21,9 +21,7 @@ const Drawer: React.FC<Props> = ({ notes, isOpen }) => {
     if (notes) {
       const groupByCategory = notes.reduce((group: LooseObject, note) => {
         const { category } = note;
-        if (isKeyInObject(group, category)) {
-          group[category] = [];
-        }
+        group[category] = group[category] ?? [];
         group[category].push(note);
         return group;
       }, {});
