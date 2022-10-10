@@ -25,7 +25,7 @@ const Markdown: React.FC<Props> = ({ md }) => {
             <SyntaxHighlighter
               children={String(children).replace(/\n$/, "")}
               language={match[1]}
-              style={dark}
+              style={theme === 'dark' ? dark : undefined}
               {...props}
             />
           ) : (
