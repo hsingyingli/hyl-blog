@@ -21,7 +21,7 @@ const Navbar: React.FC<Props> = ({ path }) => {
           <div className='hidden sm:flex gap-5 text-lg item-center justify-center mr-10'>
             <Link href='/' passHref><a className='p-1 rounded-md' style={{ backgroundColor: path === '/' ? '#14B8A6' : 'transparent' }}>Home</a></Link>
             {session?.user &&
-              <Link href='/notes'><a className='bg-red-500 p-1 rounded-md' style={{ backgroundColor: path === '/posts' ? '#14B8A6' : 'transparent' }}>Notes</a></Link>}
+              <Link href='/notes'><a className='bg-red-500 p-1 rounded-md' style={{ backgroundColor: path === '/notes' ? '#14B8A6' : 'transparent' }}>Notes</a></Link>}
           </div>
           <ThemeToggleButton />
           <DropdownMenu />

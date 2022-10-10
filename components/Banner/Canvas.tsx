@@ -7,9 +7,9 @@ const MatrixRainCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current as HTMLCanvasElement;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     const effect = new Effect(canvas.width, canvas.height)
-    canvas.width = window.innerWidth - 4;
-    canvas.height = window.innerHeight - 4;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     ctx.globalCompositeOperation = 'source-over'
     let animationFrameId: number;
