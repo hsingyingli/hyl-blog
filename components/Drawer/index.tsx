@@ -10,6 +10,7 @@ interface Props {
 const Drawer: React.FC<Props> = ({ posts }) => {
   const { theme } = useTheme()
   const { post, selectPost } = usePost()
+  console.log('drawer', post)
   const category = useMemo(() => {
     if (posts) {
       const groupByCategory = posts.reduce((group, post) => {

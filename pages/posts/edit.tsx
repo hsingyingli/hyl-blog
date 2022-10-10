@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router'
 import { useState } from "react";
 import { FaAngleRight } from 'react-icons/fa'
 import supabase from '../../utils/supabaseClient';
 import toast from 'react-hot-toast'
-import { Clses } from '../../utils/types/cls';
 import usePost from '../../hooks/usePost';
 import useAuth from '../../hooks/useAuth';
+import { GetServerSideProps } from 'next';
+import { Post } from '../../utils/types/post';
 
 const AceEditor = dynamic(
   () => {
@@ -24,11 +25,11 @@ const Markdown = dynamic(
 );
 
 interface Props {
-  clses: Clses
+  isUpdating: boolean
+  post: Post | null
 }
 
-
-const Editor: React.FC<Props> = () => {
+const Editor: React.FC<Props> = ({ isUpdating, post }) => {
   const [markdown, setMarkdown] = useState(`---
 # title: 
 ---
@@ -40,24 +41,65 @@ const Editor: React.FC<Props> = () => {
   const router = useRouter();
   const { session } = useAuth()
 
+  useEffect(() => {
+    if (isUpdating && post) {
+      setCategory(post.category)
+      setTitle(post.title)
+      setMarkdown(post.content)
+    }
+  }, [])
+
   const handleOnChange = (value: string, e: React.ChangeEvent<HTMLInputElement>) => {
     setMarkdown(value)
   }
 
-  const handleOnSave = async () => {
+  const handleOnUpdate = async () => {
     setIsLoading(true)
     const toastId = toast.loading('Loading...');
-    const post = {
+    const newPost = {
       title: title || "untitled",
       owner_id: session?.user?.id,
       content: markdown,
       updated_at: ((new Date()).toISOString()),
       category: category || "untitled"
     }
+
+
+    const { data, error } = await supabase
+      .from('posts')
+      .update(newPost)
+      .match({ id: post?.id, owner_id: session?.user?.id })
+
+    setIsLoading(false)
+    if (error) {
+      toast.error(error.message, {
+        id: toastId
+      })
+      return
+    }
+    toast.success("Updated!", {
+      id: toastId
+    })
+
+    selectPost(data[0])
+    router.push(`/posts`)
+  }
+
+  const handleOnSave = async () => {
+    setIsLoading(true)
+    const toastId = toast.loading('Loading...');
+    const newPost = {
+      title: title || "untitled",
+      owner_id: session?.user?.id,
+      content: markdown,
+      updated_at: ((new Date()).toISOString()),
+      category: category || "untitled"
+    }
+
     const { data, error } = await supabase
       .from('posts')
       .insert([
-        post,
+        newPost,
       ])
 
     setIsLoading(false)
@@ -93,7 +135,7 @@ const Editor: React.FC<Props> = () => {
           onChange={(e) => setTitle(e.target.value)} />
         <FaAngleRight className='text-lg' />
         <button className='text-md rounded-lg border-2 border-gray-600 py-1 px-2 bg-transparent'
-          onClick={handleOnSave}
+          onClick={isUpdating ? handleOnUpdate : handleOnSave}
           disabled={isLoading}
         >Save</button>
       </div>
@@ -107,6 +149,36 @@ const Editor: React.FC<Props> = () => {
       </div>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const postId = ctx.query.postId
+
+  if (!postId) return {
+    props: {
+      isUpdating: false,
+      post: null
+    }
+  }
+  const { user } = await supabase.auth.api.getUserByCookie(ctx.req)
+  const { data, error } = await supabase.from('posts').select('*').match({ id: postId, owner_id: user?.id }).single()
+
+  if (error) {
+    return {
+      redirect: {
+        destination: '/posts',
+        permanent: true
+      }, props: {}
+    }
+  }
+
+  return {
+    props: {
+      isUpdating: true,
+      post: data
+    }
+  }
+
 }
 
 export default Editor

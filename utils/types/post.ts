@@ -8,7 +8,7 @@ type Post = {
   content: string
   title: string
   cls_id: number
-  category: Cls
+  category: string
 }
 
 type Posts = Array<Post>

@@ -54,13 +54,11 @@ const Posts: React.FC = () => {
     getPost()
   }, [])
 
-
   const handleOnDelete = async () => {
     const { error } = await supabase
       .from('posts')
       .delete()
       .match({ id: post?.id, owner_id: user?.id })
-    console.log(error)
     if (error) {
       toast.error(error.message)
       return
@@ -83,9 +81,9 @@ const Posts: React.FC = () => {
           <Drawer posts={posts} />
         </div>
         <div className='md:pl-[300px] p-0  flex-grow'>
-          <div className='flex items-center justify-end p-3 gap-3 text-2xl'>
+          <div className='flex items-center justify-end p-3 gap-3 text-2xl' style={{ display: post ? 'flex' : 'none' }}>
             <div className='group relative'>
-              <button><MdEditNote /></button>
+              <a href={`/posts/edit?postId=${post?.id}`}><MdEditNote /></a>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Edit</span>
             </div>
 
