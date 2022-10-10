@@ -50,7 +50,7 @@ const Notes: React.FC = () => {
     }
 
     fetchNote()
-  }, [])
+  }, [user])
 
   const handleOnDelete = async () => {
     const { error } = await supabase

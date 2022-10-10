@@ -16,7 +16,6 @@ const Markdown: React.FC<Props> = ({ md }) => {
     <ReactMarkdown
       className='prose prose-lg max-w-none w-full h-full p-2 dark:prose-invert'
       remarkPlugins={[remarkGfm]}
-      children={md}
       components={{
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
@@ -34,7 +33,7 @@ const Markdown: React.FC<Props> = ({ md }) => {
           );
         },
       }}
-    />
+    >{md}</ReactMarkdown>
   )
 }
 

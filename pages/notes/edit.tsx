@@ -47,7 +47,7 @@ const Editor: React.FC<Props> = ({ isUpdating, note }) => {
       setTitle(note.title)
       setMarkdown(note.content)
     }
-  }, [])
+  }, [isUpdating, note])
 
   const handleOnChange = (value: string, e: React.ChangeEvent<HTMLInputElement>) => {
     setMarkdown(value)

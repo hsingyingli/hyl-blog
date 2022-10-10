@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link"
 import { useRouter } from 'next/router';
 import React, { useState } from "react";
 import toast from 'react-hot-toast';
@@ -44,7 +45,7 @@ const SignIn: React.FC = () => {
           <button className="p-2 rounded-lg border-2 border-gray-500 dark:hover:border-white hover:border-black" type='submit'>Submit</button>
         </form>
         <hr className="w-full border-[1px] border-black dark:border-white my-6" />
-        <p className="text-center">Dont have account yet? <span className="dark:text-cyan-400 text-cyan-600"><a href="/signup">signup</a></span></p>
+        <p className="text-center">Dont have account yet? <span className="dark:text-cyan-400 text-cyan-600"><Link href="/signup" passHref><a>signup</a></Link></span></p>
       </div>
 
     </div>
