@@ -56,7 +56,10 @@ const Drawer: React.FC<Props> = ({ notes, closeDrawer }) => {
                         const textColor = theme === 'dark' ? 'white' : 'rgb(156, 163, 175)'
                         return (
                           <li
-                            onClick={() => selectNote(v)}
+                            onClick={() => {
+                              selectNote(v)
+                              closeDrawer()
+                            }}
                             key={v.id}
                             style={{ color: isActive ? textColor : '' }}
                             className='cursor-pointer mb-3 hover:text-gray-400 dark:text-gray-400 dark:hover:text-white'>

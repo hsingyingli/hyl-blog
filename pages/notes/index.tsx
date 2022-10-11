@@ -80,16 +80,16 @@ const Notes: React.FC = () => {
         </div>
         <div className='md:pl-[300px] p-0  flex-grow'>
           <div className='flex items-center p-3 gap-3 text-2xl' >
-            <div className='group md:hidden relative h-8 w-8 p-1 text-white hover:text-gray-500 duration-500'>
+            <div className='group md:hidden relative h-8 w-8 p-1  hover:text-gray-500 duration-500'>
               <button onClick={() => setIsOpen(true)}><MdOutlineList /></button>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Show Drawer</span>
             </div>
-            <div className='group relative h-8 w-8 p-1 text-white hover:text-gray-500 duration-500' style={{ display: note ? 'flex' : 'none' }}>
+            <div className='group relative h-8 w-8 p-1  hover:text-gray-500 duration-500' style={{ display: note ? 'flex' : 'none' }}>
               <Link href={`/notes/edit?noteId=${note?.id}`} passHref><a><MdMode /></a></Link>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Edit</span>
             </div>
 
-            <div className='group relative h-8 w-8 p-1 text-white hover:text-gray-500 duration-500' style={{ display: note ? 'flex' : 'none' }}>
+            <div className='group relative h-8 w-8 p-1  hover:text-gray-500 duration-500' style={{ display: note ? 'flex' : 'none' }}>
               <button onClick={handleOnDelete}><MdDelete /></button>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Delete</span>
             </div>
