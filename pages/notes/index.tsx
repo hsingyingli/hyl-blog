@@ -23,13 +23,11 @@ const Notes: React.FC = () => {
   const user = supabase.auth.user()
 
 
-  const welcome = `# Hello friend
----
-***This is Hsing-Blog***
-> a simple markdown blog
-- [x] Write, Save Markdown Content
-- [x] Update, Delete blog
-- [ ] Landing Page is still uncompleted
+  const welcome = `---
+# ***Hello Friend!***
+> This is a simple markdown notebook
+- [x] Write, Edit, Save, Delete your own note
+- [x] Dark theme support
 ---
 `
   useEffect(() => {
