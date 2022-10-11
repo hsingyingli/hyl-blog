@@ -3,18 +3,18 @@ import React, { useMemo } from 'react'
 import useNote from '../../hooks/useNote'
 import useTheme from '../../hooks/useTheme'
 import { Notes } from '../../utils/types/note'
-import { isKeyInObject } from '../../utils/utils'
+import { MdOutlineClose } from 'react-icons/md'
 
 interface Props {
   notes: Notes | null
-  isOpen: boolean
+  closeDrawer: () => void
 }
 
 interface LooseObject {
   [key: string]: any
 }
 
-const Drawer: React.FC<Props> = ({ notes, isOpen }) => {
+const Drawer: React.FC<Props> = ({ notes, closeDrawer }) => {
   const { theme } = useTheme()
   const { note, selectNote } = useNote()
   const category = useMemo(() => {
@@ -31,7 +31,8 @@ const Drawer: React.FC<Props> = ({ notes, isOpen }) => {
   }, [notes])
 
   return (
-    <div className='h-[calc(100vh_-_88px)] w-[300px] py-3 px-2 divide-y-[1px] divide-gray-100 flex flex-col gap-5 overflow-auto fixed'>
+    <div className='h-[calc(100vh_-_88px)] w-[min(90%,_300px)] py-3 px-2 divide-y-[1px] divide-gray-100 flex flex-col gap-5 overflow-auto fixed bg-amber-50 dark:bg-black'>
+      <button onClick={closeDrawer} className='ml-auto text-xl float-right md:hidden'><MdOutlineClose /></button>
       <Link href='/notes/edit' passHref><a className='w-full inline-block p-2 text-center text-lg bg-teal-500 rounded-lg text-white hover:text-gray-100 hover:bg-teal-400 duration-500'>Create Note</a></Link>
       <div className='divide-y-[1px] divide-[rgba(249, 250, 251, 0.1)]'>
         {Object.entries(category).map((data) => {
