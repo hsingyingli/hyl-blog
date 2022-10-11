@@ -40,10 +40,6 @@ const Notes: React.FC = () => {
         .eq('owner_id', user?.id)
         .order('created_at')
 
-      if (error) {
-        toast.error(error.message)
-      }
-
       if (data) {
         setNotes(data)
       }
@@ -80,7 +76,7 @@ const Notes: React.FC = () => {
   return isLoading ? <Loading />
     :
     (
-      <div className='flex gap-10 min-h-[calc(100vh_-_64px)]'>
+      <div className='flex gap-10 min-h-[calc(100vh_-_60px)]'>
         <div className={`${isOpen ? 'block' : 'hidden'} md:block z-50`}>
           <Drawer notes={notes} closeDrawer={closeDrawer} />
         </div>

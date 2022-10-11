@@ -18,10 +18,10 @@ const Navbar: React.FC<Props> = ({ path }) => {
       <div className='max-w-screen-2xl w-full mx-auto flex gap-7 items-center justify-between p-3'>
         <div className='font-bold text-2xl cursor-pointer' onClick={handleOnClick}>MD-NoteBook</div>
         <div className="flex gap-3">
-          <div className='hidden sm:flex gap-5 text-lg item-center justify-center mr-10'>
-            <Link href='/' passHref><a className='p-1 rounded-md' style={{ backgroundColor: path === '/' ? '#14B8A6' : 'transparent' }}>Home</a></Link>
+          <div className='hidden sm:flex gap-5  item-center justify-center mr-10'>
+            <Link href='/' passHref><a className='p-2 rounded-md hover:text-gray-500' style={{ backgroundColor: path === '/' ? '#14B8A6' : 'transparent' }}>Home</a></Link>
             {session?.user &&
-              <Link href='/notes'><a className='bg-red-500 p-1 rounded-md' style={{ backgroundColor: path === '/notes' ? '#14B8A6' : 'transparent' }}>Notes</a></Link>}
+              <Link href='/notes'><a className='bg-red-500 p-2 rounded-md hover:text-gray-500' style={{ backgroundColor: path === '/notes' ? '#14B8A6' : 'transparent' }}>Notes</a></Link>}
           </div>
           <ThemeToggleButton />
           <DropdownMenu />
