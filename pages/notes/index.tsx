@@ -85,7 +85,7 @@ const Notes: React.FC = () => {
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Show Drawer</span>
             </div>
             <div className='group relative h-8 w-8 p-1  hover:text-gray-500 duration-500' style={{ display: note ? 'flex' : 'none' }}>
-              <Link href={`/notes/edit?noteId=${note?.id}`} passHref><a><MdMode /></a></Link>
+              <Link href={`/notes/edit?noteId=${note?.id}`} passHref><a onClick={() => setIsLoading(true)}><MdMode /></a></Link>
               <span className='absolute text-sm font-medium rounded-lg bg-gray-500 text-white py-1 px-2 invisible group-hover:visible top-8 left-[-50%]'>Edit</span>
             </div>
 
