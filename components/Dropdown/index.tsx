@@ -4,6 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { MdMenu } from 'react-icons/md';
 import supabase from "../../utils/supabaseClient";
 import useAuth from "../../hooks/useAuth";
+import Link from "next/link";
 
 
 const DropdownMenu = () => {
@@ -11,6 +12,7 @@ const DropdownMenu = () => {
   const { session } = useAuth();
 
   const redirectToHome = () => router.push('/')
+  const redirectToReset = () => router.push('/reset')
   const redirectToNotes = () => router.push('/notes')
   const redirectToSignIn = () => router.push('/signin')
   const redirectToSignUp = () => router.push('/signup')
@@ -41,13 +43,31 @@ const DropdownMenu = () => {
                 <>
                   <div className="p-1">
                     <Menu.Item>
-                      <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToHome}>Home</button>
+                      <button
+                        className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200'
+                        onClick={redirectToHome}
+                      >
+                        Home
+                      </button>
                     </Menu.Item>
                     <Menu.Item>
-                      <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToNotes}>Notes</button>
+                      <button
+                        className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200'
+                        onClick={redirectToNotes}
+                      >
+                        Notes
+                      </button>
                     </Menu.Item>
                   </div>
                   <div className="p-1">
+                    <Menu.Item>
+                      <button
+                        className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200'
+                        onClick={redirectToReset}
+                      >
+                        Reset Profile
+                      </button>
+                    </Menu.Item>
                     <Menu.Item>
                       <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={logout}>Logout</button>
                     </Menu.Item>
@@ -57,10 +77,15 @@ const DropdownMenu = () => {
               :
               (<div className="p-1">
                 <Menu.Item>
-                  <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToSignIn}>SignIn</button>
+                  <button
+                    className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToSignIn}>
+                    SignIn
+                  </button>
                 </Menu.Item>
                 <Menu.Item>
-                  <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToSignUp}>SignUp</button>
+                  <button className='group flex w-full items-center rounded-md p-2 text-md hover:bg-gray-200' onClick={redirectToSignUp}>
+                    SignUp
+                  </button>
                 </Menu.Item>
               </div>
               )

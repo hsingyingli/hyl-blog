@@ -1,9 +1,16 @@
 import React from "react";
 import { useRouter } from 'next/router'
-import ThemeToggleButton from "../ThemeToggleButton";
+import dynamic from "next/dynamic";
 import DropdownMenu from "../Dropdown";
 import useAuth from "../../hooks/useAuth";
 import Link from "next/link";
+
+const ThemeToggleButton = dynamic(
+  () => {
+    return import("../ThemeToggleButton");
+  },
+  { ssr: false }
+);
 
 interface Props {
   path: string
