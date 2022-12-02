@@ -1,13 +1,14 @@
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from "react";
 import toast from 'react-hot-toast'
-import supabase from "../../utils/supabaseClient";
 import { Notes } from "../../utils/types/note";
 import Drawer from "../../components/Drawer";
 import { MdOutlineList, MdDelete, MdMode } from 'react-icons/md'
 import Loading from '../../components/Loading';
 import useNote from '../../hooks/useNote';
 import Link from 'next/link';
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+
 const Markdown = dynamic(
   () => {
     return import("../../components/Markdown");
@@ -20,7 +21,8 @@ const Notes: React.FC = () => {
   const [notes, setNotes] = useState<Notes | null>(null)
   const { note, selectNote } = useNote()
   const [isOpen, setIsOpen] = useState(false)
-  const user = supabase.auth.user()
+  const supabase = useSupabaseClient()
+  const user = useUser()
 
 
   const welcome = `---

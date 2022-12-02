@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState, useEffect } from "react";
 import toast from 'react-hot-toast';
 import Loading from "../components/Loading";
-import supabase from "../utils/supabaseClient";
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 
 const SignIn: React.FC = () => {
@@ -11,20 +11,34 @@ const SignIn: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const user = supabase.auth.user()
+  const supabase = useSupabaseClient()
+  const user = useUser()
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false)
+    }
+    router.events.on('routeChangeComplete', handleComplete);
+    return () => {
+      router.events.off('routeChangeComplete', handleComplete)
+    }
+  }, [])
 
   useEffect(() => {
     setIsLoading(true)
     if (user) {
       router.push('/')
+    } else {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }, [user])
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     const toastId = toast.loading('Loading...');
-    const { user, session, error } = await supabase.auth.signIn({
+
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
@@ -33,6 +47,7 @@ const SignIn: React.FC = () => {
       toast.error(error.message, {
         id: toastId,
       });
+      setIsLoading(false)
       return
     }
 
@@ -57,7 +72,6 @@ const SignIn: React.FC = () => {
         <hr className="w-full border-[1px] border-black dark:border-white my-6" />
         <p className="text-center">Dont have account yet? <span className="dark:text-cyan-400 text-cyan-600"><Link href="/signup" passHref><a>signup</a></Link></span></p>
       </div>
-
     </div>
   )
 }

@@ -6,9 +6,10 @@ import { FaAngleRight } from 'react-icons/fa'
 import supabase from '../../utils/supabaseClient';
 import toast from 'react-hot-toast'
 import useNote from '../../hooks/useNote';
-import useAuth from '../../hooks/useAuth';
+
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { GetServerSideProps } from 'next';
-import { Note } from '../../utils/types/note';
+import { Note, Notes } from '../../utils/types/note';
 
 const AceEditor = dynamic(
   () => {
@@ -39,7 +40,8 @@ const Editor: React.FC<Props> = ({ isUpdating, note }) => {
   const [title, setTitle] = useState("");
   const { selectNote } = useNote()
   const router = useRouter();
-  const { session } = useAuth()
+  const user = useUser();
+  const supabase = useSupabaseClient();
 
   useEffect(() => {
     if (isUpdating && note) {
@@ -58,7 +60,7 @@ const Editor: React.FC<Props> = ({ isUpdating, note }) => {
     const toastId = toast.loading('Loading...');
     const newNote = {
       title: title || "untitled",
-      owner_id: session?.user?.id,
+      owner_id: user?.id,
       content: markdown,
       updated_at: ((new Date()).toISOString()),
       category: category || "untitled"
@@ -68,7 +70,7 @@ const Editor: React.FC<Props> = ({ isUpdating, note }) => {
     const { data, error } = await supabase
       .from('notes')
       .update(newNote)
-      .match({ id: note?.id, owner_id: session?.user?.id })
+      .match({ id: note?.id, owner_id: user?.id })
 
     setIsLoading(false)
     if (error) {
@@ -90,7 +92,7 @@ const Editor: React.FC<Props> = ({ isUpdating, note }) => {
     const toastId = toast.loading('Loading...');
     const newNote = {
       title: title || "untitled",
-      owner_id: session?.user?.id,
+      owner_id: user?.id,
       content: markdown,
       updated_at: ((new Date()).toISOString()),
       category: category || "untitled"
@@ -120,7 +122,7 @@ const Editor: React.FC<Props> = ({ isUpdating, note }) => {
   return (
     <div className='w-full mx-auto'>
       <div className='flex mb-5 gap-3 items-center'>
-        <p className='text-md rounded-lg border-2 border-gray-600 py-1 px-2'>{session?.user?.user_metadata.username}</p>
+        <p className='text-md rounded-lg border-2 border-gray-600 py-1 px-2'>{user?.user_metadata.username}</p>
         <FaAngleRight className='text-lg' />
         <input className='text-md rounded-lg border-2 border-gray-600 py-1 px-2 bg-transparent'
           type='text'

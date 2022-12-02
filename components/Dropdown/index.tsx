@@ -2,14 +2,13 @@ import React, { Fragment } from "react";
 import { useRouter } from 'next/router';
 import { Menu, Transition } from '@headlessui/react';
 import { MdMenu } from 'react-icons/md';
-import supabase from "../../utils/supabaseClient";
-import useAuth from "../../hooks/useAuth";
-import Link from "next/link";
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 
 const DropdownMenu = () => {
   const router = useRouter();
-  const { session } = useAuth();
+  const user = useUser()
+  const supabase = useSupabaseClient()
 
   const redirectToHome = () => router.push('/')
   const redirectToReset = () => router.push('/reset')
@@ -38,7 +37,7 @@ const DropdownMenu = () => {
       >
         <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-200 rounded-md bg-white dark:bg-gray-200 dark:text-black shadow-lg focus:outline-none">
           {
-            session ?
+            user ?
               (
                 <>
                   <div className="p-1">
@@ -90,7 +89,6 @@ const DropdownMenu = () => {
               </div>
               )
           }
-
         </Menu.Items>
       </Transition>
     </Menu>

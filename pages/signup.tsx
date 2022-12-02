@@ -1,10 +1,9 @@
-import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from "react";
 import toast from 'react-hot-toast'
 import Loading from "../components/Loading";
-import supabase from "../utils/supabaseClient";
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 
 const SignUp: React.FC = () => {
@@ -13,7 +12,8 @@ const SignUp: React.FC = () => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const user = supabase.auth.user()
+  const supabase = useSupabaseClient()
+  const user = useUser()
 
   useEffect(() => {
     setIsLoading(true)
@@ -25,23 +25,24 @@ const SignUp: React.FC = () => {
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     const toastId = toast.loading('Loading...');
-    const { user, session, error } = await supabase.auth.signUp(
-      {
-        email,
-        password,
-      },
-      {
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
         data: {
-          username,
+          username
         }
       }
-    )
+    })
 
     if (error) {
       toast.error(error.message, {
         id: toastId,
       });
+      setIsLoading(false)
       return
     }
 

@@ -4,23 +4,22 @@ import Link from "next/link";
 import { useRouter } from 'next/router'
 import React, { useState } from "react";
 import toast from 'react-hot-toast'
-import supabase from "../utils/supabaseClient";
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 
-interface Props {
-  user: User
-}
-
-const Reset: React.FC<Props> = ({ user }) => {
+const Reset: React.FC = () => {
   const router = useRouter()
+  const supabase = useSupabaseClient()
+  const user = useUser()
   const [isLoading, setIsLoading] = useState(false)
-  const [username, setUsername] = useState(user.user_metadata.username)
-  const [email, setEmail] = useState(user.email)
+  const [username, setUsername] = useState(user?.user_metadata.username)
+  const [email, setEmail] = useState(user?.email)
   const [password, setPassword] = useState("")
 
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     const toastId = toast.loading('Loading...');
 
     if (password.length < 8) {
@@ -29,16 +28,17 @@ const Reset: React.FC<Props> = ({ user }) => {
       });
     }
 
-    const { user, error } = await supabase.auth.update({
-      email, password, data: {
-        username
-      }
+    const { error } = await supabase.auth.updateUser({
+      email,
+      password,
+      data: { username }
     })
 
     if (error) {
       toast.error(error.message, {
         id: toastId,
       });
+      setIsLoading(false)
       return
     }
 
@@ -68,26 +68,25 @@ const Reset: React.FC<Props> = ({ user }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
-  const { user } = await supabase.auth.api.getUserByCookie(req)
+//const { user } = await supabase.auth.api.getUserByCookie(req)
 
-  if (!user) {
-    return {
-      redirect: {
-        destination: "/signin",
-        permanent: false,
-      },
-      props: {
-      }
-    }
-  }
-  return {
-    props: {
-      user
-    }
-  }
-
-}
+//if (!user) {
+//return {
+//redirect: {
+//destination: "/signin",
+//permanent: false,
+//},
+//props: {
+//}
+//}
+//}
+//return {
+//props: {
+//user
+//}
+//}
+//}
 
 export default Reset
