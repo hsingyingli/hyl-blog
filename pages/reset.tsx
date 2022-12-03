@@ -1,6 +1,3 @@
-import { User } from "@supabase/supabase-js";
-import { GetServerSideProps } from "next";
-import Link from "next/link";
 import { useRouter } from 'next/router'
 import React, { useState } from "react";
 import toast from 'react-hot-toast'
@@ -16,6 +13,10 @@ const Reset: React.FC = () => {
   const [email, setEmail] = useState(user?.email)
   const [password, setPassword] = useState("")
 
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (!error) router.push('/')
+  }
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
@@ -49,8 +50,7 @@ const Reset: React.FC = () => {
     toast.success("Updated", {
       id: toastId
     })
-
-    router.push('/')
+    logout()
   }
 
   return (
@@ -68,25 +68,5 @@ const Reset: React.FC = () => {
   )
 }
 
-//export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-
-//const { user } = await supabase.auth.api.getUserByCookie(req)
-
-//if (!user) {
-//return {
-//redirect: {
-//destination: "/signin",
-//permanent: false,
-//},
-//props: {
-//}
-//}
-//}
-//return {
-//props: {
-//user
-//}
-//}
-//}
 
 export default Reset
