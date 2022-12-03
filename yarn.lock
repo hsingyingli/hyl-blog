@@ -584,11 +584,6 @@
   optionalDependencies:
     "fsevents" "~2.3.2"
 
-"chownr@^2.0.0":
-  "integrity" "sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ=="
-  "resolved" "https://registry.npmjs.org/chownr/-/chownr-2.0.0.tgz"
-  "version" "2.0.0"
-
 "color-convert@^2.0.1":
   "integrity" "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ=="
   "resolved" "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz"
@@ -659,11 +654,6 @@
   "integrity" "sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA=="
   "resolved" "https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz"
   "version" "1.0.8"
-
-"data-uri-to-buffer@^4.0.0":
-  "integrity" "sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA=="
-  "resolved" "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-4.0.0.tgz"
-  "version" "4.0.0"
 
 "debug@^2.2.0":
   "integrity" "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="
@@ -1141,14 +1131,6 @@
   dependencies:
     "format" "^0.2.0"
 
-"fetch-blob@^3.1.2", "fetch-blob@^3.1.4":
-  "integrity" "sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ=="
-  "resolved" "https://registry.npmjs.org/fetch-blob/-/fetch-blob-3.2.0.tgz"
-  "version" "3.2.0"
-  dependencies:
-    "node-domexception" "^1.0.0"
-    "web-streams-polyfill" "^3.0.3"
-
 "file-entry-cache@^6.0.1":
   "integrity" "sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg=="
   "resolved" "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-6.0.1.tgz"
@@ -1189,24 +1171,10 @@
   "resolved" "https://registry.npmjs.org/format/-/format-0.2.2.tgz"
   "version" "0.2.2"
 
-"formdata-polyfill@^4.0.10":
-  "integrity" "sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g=="
-  "resolved" "https://registry.npmjs.org/formdata-polyfill/-/formdata-polyfill-4.0.10.tgz"
-  "version" "4.0.10"
-  dependencies:
-    "fetch-blob" "^3.1.2"
-
 "fraction.js@^4.2.0":
   "integrity" "sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA=="
   "resolved" "https://registry.npmjs.org/fraction.js/-/fraction.js-4.2.0.tgz"
   "version" "4.2.0"
-
-"fs-minipass@^2.0.0":
-  "integrity" "sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg=="
-  "resolved" "https://registry.npmjs.org/fs-minipass/-/fs-minipass-2.1.0.tgz"
-  "version" "2.1.0"
-  dependencies:
-    "minipass" "^3.0.0"
 
 "fs.realpath@^1.0.0":
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
@@ -2255,26 +2223,6 @@
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
   "version" "1.2.6"
 
-"minipass@^3.0.0":
-  "integrity" "sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw=="
-  "resolved" "https://registry.npmjs.org/minipass/-/minipass-3.3.6.tgz"
-  "version" "3.3.6"
-  dependencies:
-    "yallist" "^4.0.0"
-
-"minizlib@^2.1.1":
-  "integrity" "sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg=="
-  "resolved" "https://registry.npmjs.org/minizlib/-/minizlib-2.1.2.tgz"
-  "version" "2.1.2"
-  dependencies:
-    "minipass" "^3.0.0"
-    "yallist" "^4.0.0"
-
-"mkdirp@^1.0.3":
-  "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
-  "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
-  "version" "1.0.4"
-
 "moment@^2.29.4":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
@@ -2340,20 +2288,6 @@
     "@next/swc-win32-arm64-msvc" "12.3.1"
     "@next/swc-win32-ia32-msvc" "12.3.1"
     "@next/swc-win32-x64-msvc" "12.3.1"
-
-"node-domexception@^1.0.0":
-  "integrity" "sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ=="
-  "resolved" "https://registry.npmjs.org/node-domexception/-/node-domexception-1.0.0.tgz"
-  "version" "1.0.0"
-
-"node-fetch@^3.2.10":
-  "integrity" "sha512-BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA=="
-  "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-3.3.0.tgz"
-  "version" "3.3.0"
-  dependencies:
-    "data-uri-to-buffer" "^4.0.0"
-    "fetch-blob" "^3.1.4"
-    "formdata-polyfill" "^4.0.10"
 
 "node-fetch@2.6.7":
   "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="
@@ -3014,14 +2948,6 @@
   "resolved" "https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.0.7.tgz"
   "version" "5.0.7"
 
-"supabase@^1.17.4":
-  "integrity" "sha512-xOrSZA2nyqGadDNgjXPTXk/ZvM5EE6DXf2xXbDmsnpNpTF7DUEVprNfpWPWRV02uh8YxNSkR2qL4Z/tkPXA0lA=="
-  "resolved" "https://registry.npmjs.org/supabase/-/supabase-1.17.4.tgz"
-  "version" "1.17.4"
-  dependencies:
-    "node-fetch" "^3.2.10"
-    "tar" "6.1.12"
-
 "supports-color@^7.1.0":
   "integrity" "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="
   "resolved" "https://registry.npmjs.org/supports-color/-/supports-color-7.2.0.tgz"
@@ -3061,18 +2987,6 @@
     "postcss-value-parser" "^4.2.0"
     "quick-lru" "^5.1.1"
     "resolve" "^1.22.1"
-
-"tar@6.1.12":
-  "integrity" "sha512-jU4TdemS31uABHd+Lt5WEYJuzn+TJTCBLljvIAHZOz6M9Os5pJ4dD+vRFLxPa/n3T0iEFzpi+0x1UfuDZYbRMw=="
-  "resolved" "https://registry.npmjs.org/tar/-/tar-6.1.12.tgz"
-  "version" "6.1.12"
-  dependencies:
-    "chownr" "^2.0.0"
-    "fs-minipass" "^2.0.0"
-    "minipass" "^3.0.0"
-    "minizlib" "^2.1.1"
-    "mkdirp" "^1.0.3"
-    "yallist" "^4.0.0"
 
 "text-table@^0.2.0":
   "integrity" "sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw=="
@@ -3305,11 +3219,6 @@
   "integrity" "sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ=="
   "resolved" "https://registry.npmjs.org/web-namespaces/-/web-namespaces-2.0.1.tgz"
   "version" "2.0.1"
-
-"web-streams-polyfill@^3.0.3":
-  "integrity" "sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q=="
-  "resolved" "https://registry.npmjs.org/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz"
-  "version" "3.2.1"
 
 "webidl-conversions@^3.0.0":
   "integrity" "sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ=="

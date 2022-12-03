@@ -19,7 +19,6 @@ interface Props {
 const Navbar: React.FC<Props> = ({ path }) => {
   const router = useRouter();
   const user = useUser()
-  console.log(user)
   const handleOnClick = () => router.push('/')
   return (
     <div className='backdrop-blur w-full fixed top-0 left-0 z-50 dark:bg-black bg-amber-50'>

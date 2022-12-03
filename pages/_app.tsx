@@ -3,11 +3,11 @@ import type { AppProps } from 'next/app'
 import Layout from '../components/Layout/main'
 import { Toaster } from 'react-hot-toast';
 import ThemeProvider from '../providers/ThemeProvider';
-import NoteSelector from '../providers/NoteSelector';
 
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { useState } from 'react';
+import NotesProvider from '../providers/NotesProvider';
 
 
 function MyApp({ Component, pageProps, router }: AppProps<{ initialSession: Session }>) {
@@ -20,10 +20,15 @@ function MyApp({ Component, pageProps, router }: AppProps<{ initialSession: Sess
     >
       <ThemeProvider>
         <Layout path={router.asPath}>
-          <NoteSelector>
-            <Component {...pageProps} />
-            <Toaster />
-          </NoteSelector>
+          {
+            router.asPath.includes("/notes") ?
+              <NotesProvider>
+                <Component {...pageProps} />
+              </NotesProvider>
+              :
+              <Component {...pageProps} />
+          }
+          <Toaster />
         </Layout>
       </ThemeProvider>
     </SessionContextProvider>
