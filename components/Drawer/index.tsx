@@ -35,7 +35,7 @@ const Drawer: React.FC<Props> = ({ closeDrawer }) => {
   }, [notes])
 
   return (
-    <div className='h-full md:w-full py-2 px-5 flex flex-col gap-5 bg-amber-50 dark:bg-black '>
+    <div className='h-full md:w-full py-2 px-5 flex flex-col gap-5  '>
       <button onClick={closeDrawer} className='ml-auto text-xl float-right md:hidden'><MdOutlineClose /></button>
       <Link href='/notes/create' passHref><a className='w-full inline-block p-2 text-center text-lg bg-teal-500 rounded-lg text-white hover:text-gray-100 hover:bg-teal-400 duration-500'>Create Note</a></Link>
       <div>
