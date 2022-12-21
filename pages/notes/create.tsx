@@ -5,7 +5,8 @@ import { useState } from "react";
 import toast from 'react-hot-toast'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Editbar from '../../components/Editbar';
-import { Category } from '../../utils/types/database.type';
+import { Category, Note } from '../../utils/types/database.type';
+import useNotes from '../../hooks/useNotes';
 
 const AceEditor = dynamic(
   () => {
@@ -33,6 +34,7 @@ const Editor: React.FC = () => {
   const router = useRouter();
   const user = useUser();
   const supabase = useSupabaseClient();
+  const { addNote } = useNotes()
 
   const handleChangeMarkdown = (value: string, e: React.ChangeEvent<HTMLInputElement>) => {
     setMarkdown(value)
@@ -49,6 +51,14 @@ const Editor: React.FC = () => {
   const handleOnSave = async () => {
     setIsLoading(true)
     const toastId = toast.loading('Loading...');
+    if (category === null) {
+      toast.error("Please set category", {
+        id: toastId
+      })
+      setIsLoading(false)
+      return
+    }
+
     const newNote = {
       title: title,
       owner_id: user?.id,
@@ -65,8 +75,6 @@ const Editor: React.FC = () => {
       .select()
       .single()
 
-    console.log(data)
-
     setIsLoading(false)
     if (error) {
       toast.error(error.message, {
@@ -78,8 +86,14 @@ const Editor: React.FC = () => {
       id: toastId
     })
 
-    router.push(`/notes/${data.id}`)
+    const note: Note = {
+      id: data.id,
+      title: data.title,
+      category
+    }
+    addNote(note)
 
+    router.push(`/notes/${data.id}`)
   }
 
   return (

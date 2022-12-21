@@ -10,13 +10,15 @@ interface NotesContextInterface {
   selectedNote: number | null
   selectNote: (id: number | null) => void
   deleteNote: (id: number) => Promise<void>
+  addNote: (note: Note) => void
 }
 
 const NotesContext = createContext<NotesContextInterface>({
   notes: [],
   selectedNote: null,
   selectNote: (id = null) => { },
-  deleteNote: async (id = -1) => { }
+  deleteNote: async (id = -1) => { },
+  addNote: (note: Note) => { }
 })
 
 interface Props {
@@ -56,6 +58,10 @@ const NotesProvider: React.FC<Props> = ({ children }) => {
 
   }, [user])
 
+  const addNote = (note: Note) => {
+    setNotes(prev => [...prev, note])
+  }
+
   const deleteNote = async (id: number) => {
     const { error } = await supabase
       .from('notes')
@@ -85,7 +91,7 @@ const NotesProvider: React.FC<Props> = ({ children }) => {
   return isLoading ?
     <Loading />
     : (
-      <NotesContext.Provider value={{ notes, selectedNote, deleteNote, selectNote }}>
+      <NotesContext.Provider value={{ notes, selectedNote, deleteNote, selectNote, addNote }}>
         {children}
       </NotesContext.Provider>
     )
