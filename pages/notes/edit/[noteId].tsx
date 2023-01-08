@@ -34,7 +34,7 @@ const Editor: React.FC = () => {
   const { noteId } = router.query
   const user = useUser();
   const supabase = useSupabaseClient();
-
+  let timeoutId: ReturnType<typeof setTimeout>;
   useEffect(() => {
     const fetchMarkdown = async () => {
       const { data, error } = await supabase
@@ -68,6 +68,26 @@ const Editor: React.FC = () => {
 
   const handleChangeMarkdown = (value: string, e: React.ChangeEvent<HTMLInputElement>) => {
     setMarkdown(value)
+    clearTimeout(timeoutId)
+
+    timeoutId = setTimeout(() => {
+      saveToDB(value)
+    }, 5000)
+
+  }
+  const saveToDB = async (value: string) => {
+    const newNote = {
+      title: title,
+      owner_id: user?.id,
+      content: value,
+      updated_at: ((new Date()).toISOString()),
+      category_id: category?.id
+    }
+
+    await supabase
+      .from('notes')
+      .update(newNote)
+      .match({ id: noteId, owner_id: user?.id })
   }
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
